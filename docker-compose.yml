@@ -18,6 +18,12 @@ services:
     volumes:
       - /app/node_modules
       - ./backend:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123qwe##
+      MYSQL_DATABASE: myapp
+      MYSQL_PORT: 3306
 
 # 이렇게 주석처리하면 mysql 셋팅은 빼고 실행하기 때문에 폴더는 그냥 놔둬도 됨
 #  mysql:

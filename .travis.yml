@@ -23,3 +23,17 @@ after_success:
   - docker push h91oon/docker-frontend
   - docker push h91oon/docker-backend
   - docker push h91oon/docker-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-web-app"
+  env: Dockerfullstackapp-env
+  bucket_name: elasticbeanstalk-ap-northeast-2-252844563311
+  bucket_path: "docker-web-app"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+
+
