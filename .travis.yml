@@ -1,0 +1,25 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t h91oon/react-fullstack-app -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true h91oon/react-fullstack-app npm run test
+
+after_success:
+  - docker build -t h91oon/docker-frontend ./frontend
+  - docker build -t h91oon/docker-backend ./backend
+  - docker build -t h91oon/docker-nginx ./nginx
+
+  # DOCKER_HUB_ID : 91o
+  # DOCKER_HUB_PASSWORD : about hanna
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+
+  - docker push h91oon/docker-frontend
+  - docker push h91oon/docker-backend
+  - docker push h91oon/docker-nginx
